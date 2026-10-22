@@ -1,22 +1,11 @@
-
 import socket
 
-# Adresse IP de la machine locale
-host = "127.0.0.1"
+def is_valid_port(port):
+    return isinstance(port, int) and 1 <= port <= 65535
 
-# Demande le port à vérifier
-port = int(input("Enter port number: "))
-
-# Crée une socket TCP
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-    # Définit un délai maximal de 2 secondes
-    sock.settimeout(2)
-
-    # Essaie de se connecter au port indiqué
-    result = sock.connect_ex((host, port))
-
-# Affiche le résultat du test
-if result == 0:
-    print("Port is open")
-else:
-    print("Port is closed or unreachable")
+def check_port(host, port, timeout=2):
+    if not is_valid_port(port):
+        raise ValueError("Invalid port")
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.settimeout(timeout)
+        return sock.connect_ex((host, port)) == 0
