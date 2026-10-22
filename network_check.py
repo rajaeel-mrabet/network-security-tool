@@ -1,21 +1,18 @@
 
 import socket
 
-# Adresse IP de la machine locale : les tests restent sur ton propre ordinateur
+# Adresse IP de la machine locale
 host = "127.0.0.1"
 
-# Demande à l'utilisateur de saisir le port à vérifier
-# input() récupère du texte et int() le convertit en entier
+# Demande le port à vérifier
 port = int(input("Enter port number: "))
 
-# Crée une socket TCP pour tester la connexion au port
+# Crée une socket TCP
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-
-    # Définit un délai maximal de 2 secondes pour la connexion
+    # Définit un délai maximal de 2 secondes
     sock.settimeout(2)
 
     # Essaie de se connecter au port indiqué
-    # connect_ex() renvoie 0 si la connexion réussit
     result = sock.connect_ex((host, port))
 
 # Affiche le résultat du test
